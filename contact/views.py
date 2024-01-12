@@ -13,24 +13,43 @@ from .models import Contact
 from .serializers import ContactSerializer
 
 
-class ContactView(generics.ListCreateAPIView):
+class ContactListView(generics.ListAPIView):
     """
     list all contact in db 
-    create new contact in db
     """
 
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
 
+class ContactCreateView(generics.CreateAPIView):
+    """
+    create new contact in db
+    """
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
 
 
-class ContactDetailView(generics.RetrieveUpdateDestroyAPIView):
+
+class ContactDetailView(generics.RetrieveAPIView):
     """
     get contact by id 
+    """
+
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+
+class ContactUpdateView(generics.UpdateAPIView):
+    """ 
     update contact by id
+    """
+
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+
+class ContactDestroyView(generics.DestroyAPIView):
+    """
     delete contact by id
     """
 
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
-
