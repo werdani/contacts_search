@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication  
 from rest_framework.permissions import IsAuthenticated  
+from rest_framework.response import Response
+from rest_framework import status
 
 # Imports from your apps
 from .models import Contact
@@ -19,8 +21,8 @@ class ContactListView(generics.ListAPIView):
     """
     list all contact in db 
     """
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
 
@@ -48,6 +50,17 @@ class ContactUpdateView(generics.UpdateAPIView):
 
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.version != int(request.data.get('version', 0)):
+            return Response({'error': 'Conflict - Contact has been updated by another user.'}, status=status.HTTP_409_CONFLICT)
+
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        return Response(serializer.data)
 
 class ContactDestroyView(generics.DestroyAPIView):
     """
