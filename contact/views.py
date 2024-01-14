@@ -6,7 +6,6 @@ from django.contrib.auth import authenticate
 
 # Imports third-party libraries
 from rest_framework import generics
-from rest_framework.authentication import TokenAuthentication  
 from rest_framework.permissions import IsAuthenticated  
 from rest_framework.response import Response
 from rest_framework import status
@@ -21,8 +20,7 @@ class ContactListView(generics.ListAPIView):
     """
     list all contact in db 
     """
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
 
@@ -30,9 +28,9 @@ class ContactCreateView(generics.CreateAPIView):
     """
     create new contact in db
     """
-    queryset = Contact.objects.all()
-    serializer_class = ContactSerializer
-
+    permission_classes = [IsAuthenticated]
+    queryset           = Contact.objects.all()
+    serializer_class   = ContactSerializer
 
 
 class ContactDetailView(generics.RetrieveAPIView):
@@ -47,9 +45,9 @@ class ContactUpdateView(generics.UpdateAPIView):
     """ 
     update contact by id
     """
-
-    queryset = Contact.objects.all()
-    serializer_class = ContactSerializer
+    permission_classes = [IsAuthenticated]
+    queryset           = Contact.objects.all()
+    serializer_class   = ContactSerializer
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -66,6 +64,6 @@ class ContactDestroyView(generics.DestroyAPIView):
     """
     delete contact by id
     """
-
+    permission_classes = [IsAuthenticated]
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
