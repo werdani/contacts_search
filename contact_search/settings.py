@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-@=z*oj!wox7m&2+ndmb&hg-p1__44m6(e)+2!@^s0ky*trq2sh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -44,8 +44,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
     # My apps
-    'account.apps.AccountConfig',
     'contact.apps.ContactConfig',
+    'account.apps.AccountConfig',
     
 ]
 
@@ -109,8 +109,12 @@ WSGI_APPLICATION = 'contact_search.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'contact',        
+        'USER': 'root',           
+        'PASSWORD': 'root',         
+        'HOST': 'localhost',     
+        'PORT': '5432',          
     }
 }
 

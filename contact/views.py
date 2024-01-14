@@ -21,8 +21,8 @@ class ContactListView(generics.ListAPIView):
     list all contact in db 
     """
     permission_classes = [IsAuthenticated]
-    queryset = Contact.objects.all()
-    serializer_class = ContactSerializer
+    queryset           = Contact.objects.all()
+    serializer_class   = ContactSerializer
 
 class ContactCreateView(generics.CreateAPIView):
     """
@@ -37,9 +37,9 @@ class ContactDetailView(generics.RetrieveAPIView):
     """
     get contact by id 
     """
-
-    queryset = Contact.objects.all()
-    serializer_class = ContactSerializer
+    permission_classes = [IsAuthenticated]
+    queryset           = Contact.objects.all()
+    serializer_class   = ContactSerializer
 
 class ContactUpdateView(generics.UpdateAPIView):
     """ 
@@ -65,5 +65,5 @@ class ContactDestroyView(generics.DestroyAPIView):
     delete contact by id
     """
     permission_classes = [IsAuthenticated]
-    queryset = Contact.objects.all()
-    serializer_class = ContactSerializer
+    queryset           = Contact.objects.all()
+    serializer_class   = ContactSerializer
