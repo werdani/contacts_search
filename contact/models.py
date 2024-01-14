@@ -11,7 +11,6 @@ class Contact(models.Model):
     created_by   = models.ForeignKey(User, on_delete=models.CASCADE, related_name='contacts_created', null=True, blank=True)
     updated_by   = models.ForeignKey(User, on_delete=models.CASCADE, related_name='contacts_updated', null=True, blank=True)
     last_updated_at = models.DateTimeField(auto_now=True)
-    version      = models.PositiveIntegerField(default=0)
 
 
 

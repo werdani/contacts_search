@@ -1,4 +1,5 @@
 # Imports standard libraries
+from django.db import transaction
 from django.shortcuts import render
 
 # Imports core Django libraries
@@ -51,16 +52,15 @@ class ContactUpdateView(generics.UpdateAPIView):
     queryset           = Contact.objects.all()
     serializer_class   = ContactSerializer
 
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        if instance.version != int(request.data.get('version', 0)):
-            return Response({'error': 'Conflict - Contact has been updated by another user.'}, status=status.HTTP_409_CONFLICT)
+    def get_queryset(self):
+        # Use select_for_update() to lock the selected row(s)
+        return Contact.objects.select_for_update().all()
 
-        serializer = self.get_serializer(instance, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
+    @transaction.atomic
+    def put(self, request, *args, **kwargs):
+        # Use a transaction to wrap the update operation
+        return super().put(request, *args, **kwargs)
 
-        return Response(serializer.data)
 
 
 class ContactDestroyView(generics.DestroyAPIView):
