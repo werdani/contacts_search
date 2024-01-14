@@ -107,27 +107,28 @@ WSGI_APPLICATION = 'contact_search.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'contact',        
-        'USER': 'root',           
-        'PASSWORD': 'root',         
-        'HOST': 'localhost',     
-        'PORT': '5432',          
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'contact_test',        
+#         'NAME': 'contact',        
 #         'USER': 'root',           
 #         'PASSWORD': 'root',         
-#         'HOST': 'db',     
+#         'HOST': 'localhost',     
 #         'PORT': '5432',          
 #     }
 # }
+
+## shared database
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'lfszcqoc',        
+        'USER': 'lfszcqoc',           
+        'PASSWORD': 'EOgrKMwMCKm5DtQVYzgc2BSHDclk1k26',         
+        'HOST': 'horton.db.elephantsql.com',     
+        'PORT': '5432',          
+    }
+}
 
 
 
