@@ -24,6 +24,7 @@ class ContactListView(generics.ListAPIView):
     queryset           = Contact.objects.all()
     serializer_class   = ContactSerializer
 
+
 class ContactCreateView(generics.CreateAPIView):
     """
     create new contact in db
@@ -40,6 +41,7 @@ class ContactDetailView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]
     queryset           = Contact.objects.all()
     serializer_class   = ContactSerializer
+
 
 class ContactUpdateView(generics.UpdateAPIView):
     """ 
@@ -59,6 +61,7 @@ class ContactUpdateView(generics.UpdateAPIView):
         self.perform_update(serializer)
 
         return Response(serializer.data)
+
 
 class ContactDestroyView(generics.DestroyAPIView):
     """
